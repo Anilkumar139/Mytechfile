@@ -1,7 +1,10 @@
 pipeline {
 	agent any
-
+	
 	stages {
+		stage ('getscm')
+		git 'https://github.com/Anilkumar139/Mytechfile.git'
+
 		stage ('compile stage') {
 
 		steps {
@@ -11,6 +14,15 @@ pipeline {
 		}
 	}
 
+
+		 stage ('package stage') {
+
+                steps {
+                    withMaven(maven : 'maven') {
+                        sh 'mvn clean package'
+                        }
+                }
+        }	
 	stage ('Testing stage') {
                 steps {
 
